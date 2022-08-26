@@ -52,7 +52,7 @@ export const userList = [
   },
   { name: "Historial", link: user.historial, icon: <HistoryIcon /> },
 ];
-export const restaurantList = [
+export const RRHHList = [
   {
     name: "Pruebas",
     link: rh.pruebas,
@@ -69,13 +69,13 @@ const drawerWidth = 240;
 
 const DashboardDrawer = ({ open, handleDrawerClose, rol }) => {
   const defineList = () => {
-    if (rol === 1) {
+    if (rol === "aspirante") {
       return userList;
     }
-    if (rol === 2) {
+    if (rol === "admin") {
       return adminList;
     }
-    return restaurantList;
+    return RRHHList;
   };
 
   const theme = useTheme();

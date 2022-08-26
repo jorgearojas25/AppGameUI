@@ -3,6 +3,10 @@ import {
   Card,
   CardActions,
   CardContent,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
   TextField,
   Typography,
 } from "@mui/material";
@@ -13,25 +17,34 @@ import useField from "../../hooks/useField";
 import { useDispatch, useSelector } from "react-redux";
 import { reloadUser, signup } from "../../store/reducers/UserReducer";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
-const Signup = () => {
+const Signup = ({ rol = "aspirante", titulo = "Registrate!" }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const registered = useSelector((store) => store.User.userCreated);
 
-  const document = useField();
-  const password = useField();
-  const name = useField();
-  const payor = useField();
+  const documento = useField();
+  const primerNombre = useField();
+  const primerApellido = useField();
+  const sexo = useField();
+  const correo = useField();
+  const celular = useField();
+  const clave = useField();
 
   const handleRegister = () => {
     dispatch(
       signup({
-        document: document.value,
-        password: password.value,
-        name: name.value,
-        payor: payor.value,
+        documento: documento.value,
+        primerApellido: primerApellido.value,
+        primerNombre: primerNombre.value,
+        sexo: sexo.value,
+        correo: correo.value,
+        celular: celular.value,
+        clave: clave.value,
+        rol: rol,
+        fechaRegistro: moment().format(),
       })
     );
   };
@@ -39,10 +52,13 @@ const Signup = () => {
   React.useEffect(() => {
     if (registered) {
       dispatch(reloadUser());
-      document.setValue("");
-      password.setValue("");
-      name.setValue("");
-      payor.setValue("");
+      documento.setValue("");
+      primerApellido.setValue("");
+      sexo.setValue("");
+      correo.setValue("");
+      celular.setValue("");
+      clave.setValue("");
+
       navigate("/login", { replace: true });
     }
   }, [registered, dispatch]);
@@ -72,36 +88,67 @@ const Signup = () => {
             }}
           >
             <Typography sx={{ fontSize: 24 }} color="text.primary" gutterBottom>
-              Registrate!
+              {titulo}
             </Typography>
-            <TextField
-              margin="normal"
-              id="nombre-field"
-              label="nombre"
-              value={name.value}
-              onChange={name.onChange}
-            />
+
             <TextField
               margin="normal"
               id="documento-field"
-              label="documento"
-              value={document.value}
-              onChange={document.onChange}
+              label="Documento"
+              value={documento.value}
+              onChange={documento.onChange}
             />
             <TextField
               margin="normal"
-              id="password-field"
-              label="password"
-              value={password.value}
-              onChange={password.onChange}
+              id="apellido-field"
+              label="Primer Apellido"
+              value={primerApellido.value}
+              onChange={primerApellido.onChange}
+            />
+            <TextField
+              margin="normal"
+              id="nombre-field"
+              label="Primer Nombre"
+              value={primerNombre.value}
+              onChange={primerNombre.onChange}
+            />
+            <FormControl>
+              <InputLabel id="sexo-select-label">Sexo</InputLabel>
+              <Select
+                labelId="sexo-select-label"
+                id="sexo-select-field"
+                value={sexo.value}
+                label="Sexo"
+                onChange={sexo.onChange}
+              >
+                <MenuItem value={"M"}>Femenino</MenuItem>
+                <MenuItem value={"F"}>Masculino</MenuItem>
+                <MenuItem value={"O"}>Otro</MenuItem>
+              </Select>
+            </FormControl>
+            <TextField
+              margin="normal"
+              id="nombre-field"
+              label="Correo"
+              value={correo.value}
+              onChange={correo.onChange}
+              type="email"
+            />
+            <TextField
+              margin="normal"
+              id="nombre-field"
+              label="Celular"
+              value={celular.value}
+              onChange={celular.onChange}
+              type="number"
+            />
+            <TextField
+              margin="normal"
+              id="nombre-field"
+              label="Contraseña"
+              value={clave.value}
+              onChange={clave.onChange}
               type="password"
-            />
-            <TextField
-              margin="normal"
-              id="cuenta-field"
-              label="cuenta de cobro"
-              value={payor.value}
-              onChange={payor.onChange}
             />
           </CardContent>
           <CardActions

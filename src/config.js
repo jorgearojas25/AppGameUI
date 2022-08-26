@@ -1,17 +1,16 @@
 const config = {
-  APIURI: "http://localhost:3001/api/",
+  APIURI: "https://proyecto-multimedia-360500.uc.r.appspot.com/API/",
   PATHS: {
-    firstCharge: "pokemon?limit=100&offset=0",
-    searchPokemon: (pokemon) => `https://pokeapi.co/api/v2/pokemon/${pokemon}`,
-    login: "usuario/login",
-    register: "usuario",
-    registerRestaurant: "restaurante",
+    login: "login/",
+    register: "signup",
+    users: "users",
   },
   NAVIGATION: {
     site: {
       home: "/",
       signup: "signup",
       rhSignup: "rh/signup",
+      adminSignup: "admin/signup",
       login: "login",
     },
     admin: {

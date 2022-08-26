@@ -55,32 +55,59 @@ export const login =
     dispatch(loading());
 
     // get API data
-    const response = await axios.post(config.APIURI + config.PATHS.login, {
-      document,
-      password,
-    });
+    const response = await axios.get(
+      `${config.APIURI}${config.PATHS.login}${document}/${password}`
+    );
 
     // send API data
-    dispatch(setUser(response.data.result ? response.data.entities[0] : {}));
+    dispatch(setUser(response.status === 200 ? response.data : {}));
   };
 
 export const signup =
-  ({ document, password, name, payor, role }) =>
+  ({
+    documento,
+    primerApellido,
+    primerNombre,
+    sexo,
+    correo,
+    celular,
+    clave,
+    rol,
+    fechaRegistro,
+  }) =>
   async (dispatch) => {
     // start charging
     dispatch(loading());
 
-    // get API data
-    const response = await axios.post(config.APIURI + config.PATHS.register, {
-      documento: document,
-      nombre: name,
-      contrasenia: password,
-      cuenta_pago: payor,
-      id_rol: role || 1,
+    console.log({
+      documento,
+      primerApellido,
+      primerNombre,
+      sexo,
+      correo,
+      celular,
+      clave,
+      rol,
+      fechaRegistro,
     });
 
+    // get API data
+    const response = await axios.post(config.APIURI + config.PATHS.register, {
+      documento,
+      primerApellido,
+      primerNombre,
+      sexo,
+      correo,
+      celular,
+      clave,
+      rol,
+      fechaRegistro,
+    });
+
+    console.log(response.data);
+
     // send API data
-    dispatch(registerUser(response.data.result ? response.data.result : false));
+    dispatch(registerUser(response.status === 200 ? true : false));
   };
 
 export const restSignup =
