@@ -1,10 +1,12 @@
 import React from "react";
-import Layout from "../../components/Layout";
+import Destinations from "./Destinations";
+import Showcase from "./Showcase";
 
 const Home = (props) => {
   return (
     <>
-      <Layout>ola</Layout>
+      <Showcase />
+      <Destinations />
     </>
   );
 };

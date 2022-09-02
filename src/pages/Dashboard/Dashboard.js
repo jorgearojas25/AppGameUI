@@ -87,7 +87,7 @@ export default function Dashboard({ rol }) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Bienvenido {userInfo.nombre}
+            Bienvenido {userInfo.primerNombre}
           </Typography>
           <Box
             sx={{
