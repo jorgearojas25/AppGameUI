@@ -13,7 +13,6 @@ import Pruebas from "./pages/Dashboard/Pruebas/Pruebas";
 import Resultados from "./pages/Dashboard/Resultados/Resultados";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
-import Module from "./pages/Module";
 import AdminSignup from "./pages/Signup/AdminSignup";
 import RHSignup from "./pages/Signup/RHSignup";
 import Signup from "./pages/Signup/Signup";
@@ -26,24 +25,27 @@ function App() {
   return (
     <ThemeProvider theme={myTheme}>
       <BrowserRouter>
-        {(!userInfo?.id_usuario || !userInfo?.id_restaurante) && (
-          <ResponsiveAppBar />
-        )}
+        {!userInfo?.id_usuario && <ResponsiveAppBar />}
         <Routes>
+          {/* Landing paths */}
           <Route index element={<Home />} path={site.home} />
-          <Route path="/module" element={<Module />} />
+          {/* Login paths */}
           <Route path={site.login} element={<Login />} />
+          {/* Sign up paths */}
           <Route path={site.signup} element={<Signup />} />
           <Route path={site.rhSignup} element={<RHSignup />} />
           <Route path={site.adminSignup} element={<AdminSignup />} />
           <Route path="dashboard" element={<Dashboard rol={userInfo.rol} />}>
+            {/* Admin paths */}
             <Route path={admin.usuarios} element={<AdminUsers />} />
             <Route path={admin.pruebas} element={<AdminPruebas />} />
             <Route path={admin.rh} element={<AdminRRHH />} />
+            {/* RRHH paths */}
             <Route path={rh.pruebas} element={<Pruebas />} />
+            <Route path={rh.resultados} element={<Resultados />} />
+            {/* User paths */}
             <Route path={user.historial} element={<Historial />} />
             <Route path={user.misPruebas} element={<MisPruebas />} />
-            <Route path={rh.resultados} element={<Resultados />} />
           </Route>
         </Routes>
       </BrowserRouter>
